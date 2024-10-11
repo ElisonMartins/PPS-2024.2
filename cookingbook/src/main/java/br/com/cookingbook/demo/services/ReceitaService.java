@@ -17,13 +17,13 @@ public class ReceitaService {
         return receitaRepository.save(receita);
     }
 
-    // Obter todas as receitas
+    // Listar todas as receitas
     public List<Receita> listarReceitas() {
         return receitaRepository.findAll();
     }
 
-    // Obter receita por ID
-    public Optional<Receita> obterReceitaPorId(Long id) {
+    // Listar receita por ID
+    public Optional<Receita> listarReceitaPorId(Long id) {
         return receitaRepository.findById(id);
     }
 
