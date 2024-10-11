@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.cookingbook.demo.entities.Receita;
 import br.com.cookingbook.demo.repositories.ReceitaRepository;
 
+@Service
 public class ReceitaService {
      @Autowired
     private ReceitaRepository receitaRepository;
