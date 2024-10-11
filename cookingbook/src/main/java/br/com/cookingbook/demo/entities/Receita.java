@@ -27,5 +27,5 @@ public class Receita {
     private List<Ingrediente> ingredientes;
     private Preparo preparo;
     private Date tempo;
-
+    private int porcoes;
 }
