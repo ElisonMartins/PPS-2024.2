@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+br.com.cookingbook.demo/
 
 ### IntelliJ IDEA ###
 .idea
