@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +26,9 @@ public class Receita {
     private Long receita_id;
     private String titulo;
     private String descricao;
+    @OneToMany
     private List<Ingrediente> ingredientes;
+    @OneToOne
     private Preparo preparo;
     private Date tempo;
     private int porcoes;
