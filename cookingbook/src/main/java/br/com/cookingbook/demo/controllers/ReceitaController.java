@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
-
 @RestController
 @RequestMapping("/receitas")
 public class ReceitaController {
@@ -33,13 +30,23 @@ public class ReceitaController {
     // CRUD: criar receita
     @PostMapping("path")
     public ResponseEntity<Receita> criarReceita(@RequestBody Receita receita) {
-        Receita newReceita = receitaService.criarReceita(receita);
+        // Utilizando o padrão Builder para criar uma nova receita
+        Receita novaReceita = new Receita.Builder()
+                .titulo(receita.getTitulo())
+                .descricao(receita.getDescricao())
+                .ingredientes(receita.getIngredientes())
+                .preparo(receita.getPreparo())
+                .tempo(receita.getTempo())
+                .porcoes(receita.getPorcoes())
+                .build();
+
+        Receita newReceita = receitaService.criarReceita(novaReceita);
         return ResponseEntity.ok(newReceita);
     }
 
     // CRUD: listar receitas(todas)
     @GetMapping
-    public ResponseEntity<List<Receita>> listarReceitas()  {
+    public ResponseEntity<List<Receita>> listarReceitas() {
         List<Receita> receitas = receitaService.listarReceitas();
         return ResponseEntity.ok(receitas);
     }
@@ -57,7 +64,6 @@ public class ReceitaController {
         receitaService.setListarStrategy(new ListarPorPorcoes());
         return ResponseEntity.ok(receitaService.listarEmOrdem());
     }
-    
 
     // listar receita por ID
     @GetMapping("/{receita_id}")
@@ -87,7 +93,4 @@ public class ReceitaController {
         receitaService.deletarReceita(receita_id);
         return ResponseEntity.noContent().build();
     }
-    
-    
-    
 }
