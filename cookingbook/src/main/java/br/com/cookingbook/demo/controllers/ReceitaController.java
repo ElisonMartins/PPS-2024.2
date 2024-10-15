@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cookingbook.demo.entities.Receita;
 import br.com.cookingbook.demo.services.ReceitaService;
-import br.com.cookingbook.demo.strategies.ListarPorPorcoes;
+import br.com.cookingbook.demo.strategies.imp.ListarPorPorcoes;
 import br.com.cookingbook.demo.strategies.imp.ListarPorTempo;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -55,7 +54,7 @@ public class ReceitaController {
     // listar específicas: porção
     @GetMapping("/porcao")
     public ResponseEntity<List<Receita>> listarPorPorcoes() {
-        receitaService.setListarStrategy(new br.com.cookingbook.demo.strategies.imp.ListarPorPorcoes());
+        receitaService.setListarStrategy(new ListarPorPorcoes());
         return ResponseEntity.ok(receitaService.listarEmOrdem());
     }
     
