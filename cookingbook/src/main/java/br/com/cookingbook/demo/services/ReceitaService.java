@@ -8,11 +8,18 @@ import org.springframework.stereotype.Service;
 
 import br.com.cookingbook.demo.entities.Receita;
 import br.com.cookingbook.demo.repositories.ReceitaRepository;
+import br.com.cookingbook.demo.strategies.ReceitaListarStrategy;
 
 @Service
 public class ReceitaService {
      @Autowired
     private ReceitaRepository receitaRepository;
+
+    private ReceitaListarStrategy strategy;
+
+    public void setListarStrategy(ReceitaListarStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     // Criar uma nova receita
     public Receita criarReceita(Receita receita) {
@@ -22,6 +29,12 @@ public class ReceitaService {
     // Listar todas as receitas
     public List<Receita> listarReceitas() {
         return receitaRepository.findAll();
+    }
+
+    //Listar receitas por métodos específicos com strategy
+    public List<Receita> listarEmOrdem() {
+        List<Receita> receitas = listarReceitas();
+        return strategy != null ? strategy.Listar(receitas) : receitas;
     }
 
     // Listar receita por ID
