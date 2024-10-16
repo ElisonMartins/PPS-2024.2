@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.cookingbook.demo.entities.Ingrediente;
+import br.com.cookingbook.demo.factories.IngredienteFactory;
 import br.com.cookingbook.demo.repositories.IngredienteRepository;
 
 @Service
@@ -15,9 +16,18 @@ public class IngredienteService {
     @Autowired
     private IngredienteRepository ingredienteRepository;
 
-    // Criar novo ingrediente
+    @Autowired
+    private IngredienteFactory ingredienteFactory;
+
+    // Criar novo ingrediente usando a fábrica
     public Ingrediente criarIngrediente(Ingrediente ingrediente) {
-        return ingredienteRepository.save(ingrediente);
+        // Utiliza a fábrica para criar o ingrediente
+        Ingrediente novoIngrediente = ingredienteFactory.criarIngrediente(
+                ingrediente.getNome(),
+                ingrediente.getQuantidade(),
+                ingrediente.getReceita().getReceita_id()
+        );
+        return ingredienteRepository.save(novoIngrediente);
     }
 
     // Listar todos os ingredientes
@@ -38,6 +48,10 @@ public class IngredienteService {
             Ingrediente ingrediente = ingredienteExistente.get();
             ingrediente.setNome(ingredienteAtualizado.getNome());
             ingrediente.setQuantidade(ingredienteAtualizado.getQuantidade());
+            // Se necessário, atualizar a receita associada
+            if (ingredienteAtualizado.getReceita() != null) {
+                ingrediente.setReceita(ingredienteAtualizado.getReceita());
+            }
             return ingredienteRepository.save(ingrediente);
         } else {
             throw new RuntimeException("Ingrediente não encontrado");
