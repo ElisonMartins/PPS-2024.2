@@ -12,7 +12,7 @@ import br.com.cookingbook.demo.strategies.ReceitaListarStrategy;
 
 @Service
 public class ReceitaService {
-     @Autowired
+    @Autowired
     private ReceitaRepository receitaRepository;
 
     private ReceitaListarStrategy strategy;
@@ -31,7 +31,7 @@ public class ReceitaService {
         return receitaRepository.findAll();
     }
 
-    //Listar receitas por métodos específicos com strategy
+    // Listar receitas por métodos específicos com strategy
     public List<Receita> listarEmOrdem() {
         List<Receita> receitas = listarReceitas();
         return strategy != null ? strategy.Listar(receitas) : receitas;
@@ -45,16 +45,21 @@ public class ReceitaService {
     // Atualizar uma receita existente
     public Receita atualizarReceita(Long id, Receita receitaAtualizada) {
         Optional<Receita> receitaExistente = receitaRepository.findById(id);
-        
+
         if (receitaExistente.isPresent()) {
             Receita receita = receitaExistente.get();
-            receita.setTitulo(receitaAtualizada.getTitulo());
-            receita.setDescricao(receitaAtualizada.getDescricao());
-            receita.setIngredientes(receitaAtualizada.getIngredientes());
-            receita.setPreparo(receitaAtualizada.getPreparo());
-            receita.setTempo(receitaAtualizada.getTempo());
-            receita.setPorcoes(receitaAtualizada.getPorcoes());
-            return receitaRepository.save(receita);
+
+            // Usar o Builder para criar uma nova instância de Receita com as novas informações
+            Receita receitaModificada = new Receita.Builder()
+                    .titulo(receitaAtualizada.getTitulo())
+                    .descricao(receitaAtualizada.getDescricao())
+                    .ingredientes(receitaAtualizada.getIngredientes())
+                    .preparo(receitaAtualizada.getPreparo())
+                    .tempo(receitaAtualizada.getTempo())
+                    .porcoes(receitaAtualizada.getPorcoes())
+                    .build();
+
+            return receitaRepository.save(receitaModificada);
         } else {
             throw new RuntimeException("Receita não encontrada");
         }

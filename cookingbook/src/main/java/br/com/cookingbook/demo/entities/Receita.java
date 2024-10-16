@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor  // Necessário para o Hibernate
 public class Receita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,11 @@ public class Receita {
     private Preparo preparo;
     private Date tempo;
     private int porcoes;
+
+    // Método estático para retornar o builder
+    public static Builder builder() {
+        return new Builder();
+    }
 
     // Implementação do padrão Builder
     public static class Builder {
