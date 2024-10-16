@@ -128,6 +128,7 @@ public class CookingbookApplication implements CommandLineRunner {
 		Long id = scanner.nextLong();
 		scanner.nextLine();  // Consumir a nova linha
 
+
 		System.out.print("Digite o novo título: ");
 		String novoTitulo = scanner.nextLine();
 
