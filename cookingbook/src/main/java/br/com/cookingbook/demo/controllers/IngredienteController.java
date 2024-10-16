@@ -14,6 +14,7 @@ import br.com.cookingbook.demo.services.IngredienteService;
 @RequestMapping("/ingredientes")
 public class IngredienteController {
 
+
     @Autowired
     private IngredienteService ingredienteService;
 
