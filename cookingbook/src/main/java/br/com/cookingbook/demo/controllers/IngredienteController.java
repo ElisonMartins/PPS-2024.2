@@ -21,7 +21,7 @@ public class IngredienteController {
     // Criar ingrediente
     @PostMapping
     public ResponseEntity<Ingrediente> criarIngrediente(@RequestBody Ingrediente ingrediente) {
-        // Certifique-se de que o objeto Receita dentro de Ingrediente tem o ID correto
+        // Verifica se o objeto Receita dentro de Ingrediente tem o ID correto
         if (ingrediente.getReceita() == null || ingrediente.getReceita().getReceita_id() == null) {
             return ResponseEntity.badRequest().build();
         }
